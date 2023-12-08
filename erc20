@@ -25,20 +25,20 @@ contract MyToken is ERC20("Royal Token", "RT") {
         isContractInitialized = true;
     }
 
-    function createTokens(address userAddress, uint256 tokensToSend) external onlyAdministrator {
+    function Mint_Function(address userAddress, uint256 tokensToSend) external onlyAdministrator {
         require(isContractInitialized, "Contract not yet initialized");
         _mint(userAddress, tokensToSend);
         emit TokensEvent(address(0), userAddress, tokensToSend);
     }
 
-    function destroyTokens(uint256 tokensToSend) external {
+    function Burn_Function(uint256 tokensToSend) external {
         require(isContractInitialized, "Contract not yet initialized");
         require(balanceOf(msg.sender) >= tokensToSend, "Insufficient balance for this operation");
         _burn(msg.sender, tokensToSend);
         emit TokensEvent(msg.sender, address(0), tokensToSend);
     }
 
-    function sendTokens(address toAddress, uint256 tokensToSend) external returns (bool) {
+    function Transfer_Function(address toAddress, uint256 tokensToSend) external returns (bool) {
         require(isContractInitialized, "Contract not yet initialized");
         require(toAddress != address(0), "Invalid recipient address");
         _transfer(msg.sender, toAddress, tokensToSend);
